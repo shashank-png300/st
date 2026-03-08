@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Gaming - Premium Entertainment</title>
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --dark: #1e1e2e;
+            --darker: #161622;
+            --light: #f5f6fa;
+            --gray: #a4b0be;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --error: #d63031;
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--darker); 
+            color: var(--light); 
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        nav ul { display: flex; gap: 30px; }
+        nav a:hover { color: var(--secondary); }
+
+        .auth-buttons { display: flex; gap: 15px; }
+        .btn {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+        }
+        .btn-primary:hover { background: #5649c0; }
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+        .btn-secondary:hover { background: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.2;
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero h1 { 
+            font-size: 4rem; 
+            margin-bottom: 20px; 
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { 
+            font-size: 1.3rem; 
+            color: var(--gray); 
+            margin-bottom: 40px; 
+        }
+
+        /* --- GAME CATEGORIES --- */
+        .categories { padding: 80px 5%; }
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            margin-bottom: 50px; 
+            color: var(--light);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: var(--dark);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .category-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .category-info { padding: 25px; }
+        .category-info h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .category-info p { color: var(--gray); font-size: 0.9rem; }
+
+        /* --- FEATURED GAMES --- */
+        .featured { 
+            padding: 80px 5%; 
+            background: var(--dark);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: var(--darker);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .game-card:hover { transform: scale(1.05); }
+
+        .game-image {
+            height: 180px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .game-info { padding: 20px; }
+        .game-info h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .game-info p { color: var(--gray); font-size: 0.85rem; margin-bottom: 15px; }
+
+        .play-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- STATS SECTION --- */
+        .stats {
+            padding: 60px 5%;
+            background: var(--darker);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-number { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            color: var(--primary);
+        }
+        .stat-label { color: var(--gray); }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 5%;
+            background: var(--dark);
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 { 
+            color: var(--light); 
+            margin-bottom: 20px; 
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul li { margin-bottom: 10px; }
+        .footer-section a { color: var(--gray); }
+        .footer-section a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: var(--gray);
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--dark);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal h2 { margin-bottom: 25px; text-align: center; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--gray); }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--darker);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: var(--light);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { display: none; }
+            .auth-buttons { flex-direction: column; }
+            .stats { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="logo">Club<span>Gaming</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Games</a></li>
+                <li><a href="#featured">Featured</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-secondary" onclick="openModal('login')">Login</button>
+            <button class="btn btn-primary" onclick="openModal('register')">Register</button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Ultimate Gaming Experience</h1>
+            <p>Discover thousands of games, connect with players worldwide, and enjoy premium entertainment.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})">Explore Games</button>
+        </div>
+    </section>
+
+    <!-- CATEGORIES SECTION -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Game Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-image">🎮</div>
+                <div class="category-info">
+                    <h3>Action Games</h3>
+                    <p>Fast-paced action and adventure games</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🎲</div>
+                <div class="category-info">
+                    <h3>Strategy Games</h3>
+                    <p>Think your way to victory</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🏎️</div>
+                <div class="category-info">
+                    <h3>Racing Games</h3>
+                    <p>High-speed racing experiences</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🎯</div>
+                <div class="category-info">
+                    <h3>Skill Games</h3>
+                    <p>Test your skills and compete</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🎰</div>
+                <div class="category-info">
+                    <h3>Card Games</h3>
+                    <p>Classic card games and more</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🎪</div>
+                <div class="category-info">
+                    <h3>Entertainment</h3>
+                    <p>Fun and casual games</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED GAMES -->
+    <section class="featured" id="featured">
+        <h2 class="section-title">Featured Games</h2>
+        <div class="game-grid">
+            <div class="game-card">
+                <div class="game-image">🎮</div>
+                <div class="game-info">
+                    <h3>Cyber Adventure</h3>
+                    <p>Level: 1000+ Players</p>
+                    <button class="play-btn">Play Now</button>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-image">🎲</div>
+                <div class="game-info">
+                    <h3>Strategy Master</h3>
+                    <p>Level: 850+ Players</p>
+                    <button class="play-btn">Play Now</button>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-image">🏎️</div>
+                <div class="game-info">
+                    <h3>Speed Racer</h3>
+                    <p>Level: 1200+ Players</p>
+                    <button class="play-btn">Play Now</button>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-image">🎯</div>
+                <div class="game-info">
+                    <h3>Skill Challenge</h3>
+                    <p>Level: 950+ Players</p>
+                    <button class="play-btn">Play Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Active Players</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Games Available</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Customer Support</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Secure Platform</div>
+        </div>
+    </section>
